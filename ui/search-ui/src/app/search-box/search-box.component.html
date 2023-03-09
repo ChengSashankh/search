@@ -1,0 +1,16 @@
+<div class="container">
+  <form [formGroup]="form" (ngSubmit)="search(form)" class="search-form">
+    <mat-form-field class="search-field" appearance="outline" color="primary">
+      <mat-label>
+        <mat-icon>search</mat-icon>
+      </mat-label>
+      <input [matAutocomplete]="auto" type="text" matInput formControlName="searchControl" placeholder="Get curious!">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let suggestion of suggestions | async" [value]="suggestion">
+          {{suggestion}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+<!--    <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Search</button>-->
+  </form>
+</div>
