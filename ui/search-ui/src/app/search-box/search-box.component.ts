@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
-import {debounce, debounceTime, distinctUntilChanged, filter, map, Observable, of, startWith, Subscription} from "rxjs";
+import {debounceTime, distinctUntilChanged, map, Observable, of} from "rxjs";
 import {AutoCompleteService} from "../services/auto-complete.service";
 import {Completions} from "../model/responses";
 import {MatAutocompleteActivatedEvent} from "@angular/material/autocomplete";
