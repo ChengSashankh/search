@@ -15,6 +15,7 @@ export class SearchBoxComponent implements OnInit {
   form: FormGroup;
   suggestions: Observable<string[]>;
   overriddenSearchTerm = new Optional<string>();
+  suggestionActive: boolean = false;
 
   constructor(private autoCompleteService: AutoCompleteService) {
     this.suggestions = of([]);
@@ -34,6 +35,7 @@ export class SearchBoxComponent implements OnInit {
       )
       .subscribe((searchTerm: string) => {
         this.overriddenSearchTerm.set(searchTerm);
+        this.suggestionActive = false;
         if (searchTerm.trim() === '') {
           this.suggestions = of([]);
         } else {
@@ -61,10 +63,13 @@ export class SearchBoxComponent implements OnInit {
 
   suggestionActivated($event: MatAutocompleteActivatedEvent) {
     let selectedOption = $event.option?.value;
-    this.form.get('searchControl')?.patchValue(selectedOption, {emitEvent: false});
+    let control = this.form.get('searchControl');
+    control?.patchValue(selectedOption, {emitEvent: false});
+    this.suggestionActive = true;
   }
 
   suggestionsClosed() {
     this.form.get('searchControl')?.patchValue(this.overriddenSearchTerm.getOrElse(''), {emitEvent: false});
+    this.suggestionActive = false;
   }
 }
