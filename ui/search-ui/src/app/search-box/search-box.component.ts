@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
-import {debounce, debounceTime, distinctUntilChanged, filter, map, Observable, of, startWith} from "rxjs";
+import {debounce, debounceTime, distinctUntilChanged, filter, map, Observable, of, startWith, Subscription} from "rxjs";
 import {AutoCompleteService} from "../services/auto-complete.service";
 import {Completions} from "../model/responses";
+import {MatAutocompleteActivatedEvent} from "@angular/material/autocomplete";
+import {Optional} from "../model/optional";
 
 @Component({
   selector: 'app-search-box',
@@ -12,6 +14,7 @@ import {Completions} from "../model/responses";
 export class SearchBoxComponent implements OnInit {
   form: FormGroup;
   suggestions: Observable<string[]>;
+  overriddenSearchTerm = new Optional<string>();
 
   constructor(private autoCompleteService: AutoCompleteService) {
     this.suggestions = of([]);
@@ -30,10 +33,10 @@ export class SearchBoxComponent implements OnInit {
         distinctUntilChanged()
       )
       .subscribe((searchTerm: string) => {
+        this.overriddenSearchTerm.set(searchTerm);
         if (searchTerm.trim() === '') {
           this.suggestions = of([]);
         } else {
-          this.search(this.form);
           this.suggestions = this.getAutoComplete(searchTerm.trim().toLowerCase());
         }
       });
@@ -54,5 +57,14 @@ export class SearchBoxComponent implements OnInit {
   // TODO: Implement
   search(form: FormGroup) {
     console.log("Searched")
+  }
+
+  suggestionActivated($event: MatAutocompleteActivatedEvent) {
+    let selectedOption = $event.option?.value;
+    this.form.get('searchControl')?.patchValue(selectedOption, {emitEvent: false});
+  }
+
+  suggestionsClosed() {
+    this.form.get('searchControl')?.patchValue(this.overriddenSearchTerm.getOrElse(''), {emitEvent: false});
   }
 }

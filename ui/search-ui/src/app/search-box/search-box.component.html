@@ -4,8 +4,11 @@
       <mat-label>
         <mat-icon>search</mat-icon>
       </mat-label>
-      <input [matAutocomplete]="auto" type="text" matInput formControlName="searchControl" placeholder="Get curious!">
-      <mat-autocomplete #auto="matAutocomplete">
+      <input #searchBox [matAutocomplete]="auto" type="text" matInput formControlName="searchControl" placeholder="Get curious!">
+      <mat-autocomplete
+        (optionActivated)="suggestionActivated($event)"
+        (closed)="suggestionsClosed()"
+        #auto="matAutocomplete">
         <mat-option *ngFor="let suggestion of suggestions | async" [value]="suggestion">
           {{suggestion}}
         </mat-option>
