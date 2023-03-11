@@ -1,3 +1,10 @@
+@use '@angular/material' as mat;
+$my-palette: mat.$deep-purple-palette;
+
+.accent-color {
+  color: mat.get-color-from-palette($my-palette, 500);
+}
+
 .app {
   width: 100vw;
   height: 100vh;
@@ -6,11 +13,6 @@
 
   app-search-box {
     overflow-y: scroll;
-  }
-
-  .logo {
-    margin-top: 5vh;
-    width: 20%;
   }
 
   .spacer {

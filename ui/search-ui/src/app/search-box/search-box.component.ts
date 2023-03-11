@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import {debounceTime, distinctUntilChanged, map, Observable, of} from "rxjs";
 import {AutoCompleteService} from "../services/auto-complete.service";
 import {Completions} from "../model/responses";
 import {MatAutocompleteActivatedEvent} from "@angular/material/autocomplete";
 import {Optional} from "../model/optional";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-search-box',
@@ -12,12 +13,16 @@ import {Optional} from "../model/optional";
   styleUrls: ['./search-box.component.scss']
 })
 export class SearchBoxComponent implements OnInit {
+  @Input() initialSearch: string = '';
+  @Output() searched: EventEmitter<string> = new EventEmitter<string>();
+
   form: FormGroup;
   suggestions: Observable<string[]>;
   overriddenSearchTerm = new Optional<string>();
   suggestionActive: boolean = false;
 
-  constructor(private autoCompleteService: AutoCompleteService) {
+  constructor(private autoCompleteService: AutoCompleteService,
+              private router: Router) {
     this.suggestions = of([]);
     this.form = new FormGroup({
       searchControl: new FormControl<string>({
@@ -34,6 +39,7 @@ export class SearchBoxComponent implements OnInit {
         distinctUntilChanged()
       )
       .subscribe((searchTerm: string) => {
+        this.searched.emit(searchTerm);
         this.overriddenSearchTerm.set(searchTerm);
         this.suggestionActive = false;
         if (searchTerm.trim() === '') {
@@ -42,7 +48,7 @@ export class SearchBoxComponent implements OnInit {
           this.suggestions = this.getAutoComplete(searchTerm.trim().toLowerCase());
         }
       });
-    this.form.get('searchControl')?.setValue('');
+    this.form.get('searchControl')?.setValue(this.initialSearch);
   }
 
   getTrendingSearches(): Observable<string[]> {
@@ -56,9 +62,8 @@ export class SearchBoxComponent implements OnInit {
       );
   }
 
-  // TODO: Implement
   search(form: FormGroup) {
-    console.log("Searched")
+    this.router.navigate(['results'], { queryParams: { "q": form.get('searchControl')?.value }})
   }
 
   suggestionActivated($event: MatAutocompleteActivatedEvent) {

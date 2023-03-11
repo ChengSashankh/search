@@ -1,0 +1,13 @@
+<div>
+  <div class="top-20">
+    <app-search-box [initialSearch]="search" (searched)="getSearchResults()"></app-search-box>
+  </div>
+  <div *ngIf="postings.length === 0">
+    <h3 class="mat-h3">No results to show</h3>
+  </div>
+  <div>
+    <div *ngFor="let posting of postings">
+      {{posting.title}}
+    </div>
+  </div>
+</div>

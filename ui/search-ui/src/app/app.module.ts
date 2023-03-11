@@ -15,10 +15,16 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {ConfigurationService} from "./model";
 import {AutoCompleteService} from "./services/auto-complete.service";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
+import { SearchResultsComponent } from './search-results/search-results.component';
+import { SearchHomeComponent } from './search-home/search-home.component';
+import {RouterModule} from "@angular/router";
+import {SearchService} from "./services/search.service";
 @NgModule({
   declarations: [
     AppComponent,
-    SearchBoxComponent
+    SearchBoxComponent,
+    SearchResultsComponent,
+    SearchHomeComponent
   ],
   imports: [
     BrowserModule,
@@ -32,11 +38,17 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
     MatButtonModule,
     MatAutocompleteModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    BrowserModule,
+    RouterModule.forRoot([
+      {path: '', component: SearchHomeComponent},
+      {path: 'results', component: SearchResultsComponent}
+    ])
   ],
   providers: [
     ConfigurationService,
     AutoCompleteService,
+    SearchService,
     { provide: APP_INITIALIZER, useFactory: (config: ConfigurationService) => () => config.load(), deps: [ConfigurationService], multi: true }
   ],
   bootstrap: [AppComponent]

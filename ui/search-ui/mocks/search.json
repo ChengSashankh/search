@@ -1,0 +1,91 @@
+{
+  "query": "firefox",
+  "results": [
+    {
+      "title": "Mozilla Firefox - An Open Source Web Browser",
+      "summary": "Mozilla Firefox is a free and open source web browser supported by the Mozilla Foundation",
+      "matchingSubstring": [
+        "Mozilla Firefox is a",
+        "Mozilla Foundation"
+      ],
+      "href": "https://en.wikipedia.org/wiki/Firefox",
+      "rank": 1
+    },
+    {
+      "title": "2 Mozilla Firefox - An Open Source Web Browser",
+      "summary": "Mozilla Firefox is a free and open source web browser supported by the Mozilla Foundation",
+      "matchingSubstring": [
+        "Mozilla Firefox is a",
+        "Mozilla Foundation"
+      ],
+      "href": "https://en.wikipedia.org/wiki/Firefox",
+      "rank": 2
+    },
+    {
+      "title": "3 Mozilla Firefox - An Open Source Web Browser",
+      "summary": "Mozilla Firefox is a free and open source web browser supported by the Mozilla Foundation",
+      "matchingSubstring": [
+        "Mozilla Firefox is a",
+        "Mozilla Foundation"
+      ],
+      "href": "https://en.wikipedia.org/wiki/Firefox",
+      "rank": 3
+    },
+    {
+      "title": "4 Mozilla Firefox - An Open Source Web Browser",
+      "summary": "Mozilla Firefox is a free and open source web browser supported by the Mozilla Foundation",
+      "matchingSubstring": [
+        "Mozilla Firefox is a",
+        "Mozilla Foundation"
+      ],
+      "href": "https://en.wikipedia.org/wiki/Firefox",
+      "rank": 4
+    },
+    {
+      "title": "Mozilla Firefox - An Open Source Web Browser",
+      "summary": "Mozilla Firefox is a free and open source web browser supported by the Mozilla Foundation",
+      "matchingSubstring": [
+        "Mozilla Firefox is a",
+        "Mozilla Foundation"
+      ],
+      "href": "https://en.wikipedia.org/wiki/Firefox",
+      "rank": 11
+    },
+    {
+      "title": "2 Mozilla Firefox - An Open Source Web Browser",
+      "summary": "Mozilla Firefox is a free and open source web browser supported by the Mozilla Foundation",
+      "matchingSubstring": [
+        "Mozilla Firefox is a",
+        "Mozilla Foundation"
+      ],
+      "href": "https://en.wikipedia.org/wiki/Firefox",
+      "rank": 14
+    },
+    {
+      "title": "3 Mozilla Firefox - An Open Source Web Browser",
+      "summary": "Mozilla Firefox is a free and open source web browser supported by the Mozilla Foundation",
+      "matchingSubstring": [
+        "Mozilla Firefox is a",
+        "Mozilla Foundation"
+      ],
+      "href": "https://en.wikipedia.org/wiki/Firefox",
+      "rank": 17
+    },
+    {
+      "title": "(Best) Mozilla Firefox - An Open Source Web Browser",
+      "summary": "Mozilla Firefox is a free and open source web browser supported by the Mozilla Foundation",
+      "matchingSubstring": [
+        "Mozilla Firefox is a",
+        "Mozilla Foundation"
+      ],
+      "href": "https://en.wikipedia.org/wiki/Firefox",
+      "rank": 0
+    }
+  ],
+  "pageInfo": {
+    "pageNum": 0,
+    "itemsPerPage": 10,
+    "totalItems": 8,
+    "totalPages": 1
+  }
+}
