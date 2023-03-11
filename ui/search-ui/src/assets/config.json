@@ -1,0 +1,5 @@
+{
+  "autoCompleteServiceBase": "https://dc28beee-0733-4757-94f6-3d363320f0ac.mock.pstmn.io",
+  "searchServiceBase": "http://localhost:9090/search",
+  "trackingServiceBase": "http://localhost:9090/tracking"
+}

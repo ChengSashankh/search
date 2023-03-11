@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import {debounce, debounceTime, distinctUntilChanged, filter, map, Observable, of, startWith} from "rxjs";
+import {AutoCompleteService} from "../services/auto-complete.service";
+import {Completions} from "../model/responses";
 
 @Component({
   selector: 'app-search-box',
@@ -11,7 +13,7 @@ export class SearchBoxComponent implements OnInit {
   form: FormGroup;
   suggestions: Observable<string[]>;
 
-  constructor() {
+  constructor(private autoCompleteService: AutoCompleteService) {
     this.suggestions = of([]);
     this.form = new FormGroup({
       searchControl: new FormControl<string>({
@@ -24,13 +26,14 @@ export class SearchBoxComponent implements OnInit {
   ngOnInit(): void {
     this.form.get('searchControl')?.valueChanges
       .pipe(
-        debounceTime(500),
+        debounceTime(200),
         distinctUntilChanged()
       )
       .subscribe((searchTerm: string) => {
         if (searchTerm.trim() === '') {
-          this.suggestions = this.getTrendingSearches();
+          this.suggestions = of([]);
         } else {
+          this.search(this.form);
           this.suggestions = this.getAutoComplete(searchTerm.trim().toLowerCase());
         }
       });
@@ -42,13 +45,14 @@ export class SearchBoxComponent implements OnInit {
   }
 
   getAutoComplete(searchTerm: string): Observable<string[]> {
-    return of(['first', 'second', 'third'])
+    return this.autoCompleteService.getCompletions(searchTerm)
       .pipe(
-        map(suggestions => suggestions.filter(suggestion => suggestion.toLowerCase().startsWith(searchTerm)))
+        map((completions: Completions) => completions.completions)
       );
   }
 
+  // TODO: Implement
   search(form: FormGroup) {
-    window.alert("Searched")
+    console.log("Searched")
   }
 }
