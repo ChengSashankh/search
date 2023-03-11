@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -12,6 +12,9 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {ConfigurationService} from "./model";
+import {AutoCompleteService} from "./services/auto-complete.service";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,8 +31,14 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
     MatIconModule,
     MatButtonModule,
     MatAutocompleteModule,
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [
+    ConfigurationService,
+    AutoCompleteService,
+    { provide: APP_INITIALIZER, useFactory: (config: ConfigurationService) => () => config.load(), deps: [ConfigurationService], multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
