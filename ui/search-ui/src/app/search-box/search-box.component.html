@@ -4,7 +4,7 @@
       <mat-label>
         <mat-icon>search</mat-icon>
       </mat-label>
-      <input #searchBox [matAutocomplete]="auto" type="text" matInput formControlName="searchControl" placeholder="Get curious!">
+      <input [class]="suggestionActive ? 'suggested-search' : ''" [matAutocomplete]="auto" type="text" matInput formControlName="searchControl" placeholder="Get curious!">
       <mat-autocomplete
         (optionActivated)="suggestionActivated($event)"
         (closed)="suggestionsClosed()"
