@@ -19,8 +19,10 @@ export class SearchResultsComponent implements OnInit {
   pageInfo: PageInfo = {itemsPerPage: 10, pageNum: 0};
 
   loading: boolean = false;
+  error: boolean = false;
 
-  constructor(private route: ActivatedRoute, private searchService: SearchService) {
+  constructor(private route: ActivatedRoute,
+              private searchService: SearchService) {
     this.postings = [];
     this.searchResults = new Optional<SearchResults>();
   }
@@ -39,8 +41,12 @@ export class SearchResultsComponent implements OnInit {
           this.postings = searchResults.results;
           this.pageInfo = searchResults.pageInfo;
           this.loading = false;
+          this.error = false;
         },
-        error: (err: any) => console.log(err)
+        error: (err: any) => {
+          this.loading = false;
+          this.error = true;
+        }
       })
 
   }
