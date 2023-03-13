@@ -3,14 +3,18 @@
   <div class="search-part">
     <app-search-box [initialSearch]="search" (searched)="getSearchResults()"></app-search-box>
   </div>
-  <div *ngIf="postings.length === 0">
+  <div *ngIf="!error && postings.length === 0">
     <h3 class="mat-h3">No results to show</h3>
   </div>
-  <div class="results-panel">
+  <div *ngIf="!error" class="results-panel">
     <app-result-preview *ngFor="let posting of postings"
                         [posting]="posting" (postingClicked)="openResultExternal(posting)"></app-result-preview>
   </div>
+  <div *ngIf="error">
+    <h3 class="mat-h3">Something went wrong while searching :(</h3>
+  </div>
   <mat-paginator
+    *ngIf="!error"
     [length]="pageInfo.totalItems"
     [pageIndex]="pageInfo.pageNum"
     [pageSize]="pageInfo.itemsPerPage"
