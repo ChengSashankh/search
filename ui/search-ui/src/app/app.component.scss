@@ -1,8 +1,12 @@
 @use '@angular/material' as mat;
 $my-palette: mat.$deep-purple-palette;
 
-.accent-color {
+.title-text {
   color: mat.get-color-from-palette($my-palette, 500);
+}
+
+.title-text:hover {
+  cursor: pointer;
 }
 
 .app {
@@ -10,6 +14,10 @@ $my-palette: mat.$deep-purple-palette;
   height: 100vh;
   overflow: hidden;
   text-align: center;
+
+  .small-logo {
+    max-height: 70%;
+  }
 
   app-search-box {
     overflow-y: scroll;
