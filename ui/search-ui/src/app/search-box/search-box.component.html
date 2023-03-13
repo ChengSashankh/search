@@ -8,6 +8,7 @@
       <mat-autocomplete
         (optionActivated)="suggestionActivated($event)"
         (closed)="suggestionsClosed()"
+        (optionSelected)="suggestionSelected($event)"
         #auto="matAutocomplete">
         <mat-option *ngFor="let suggestion of suggestions | async" [value]="suggestion">
           {{suggestion}}
