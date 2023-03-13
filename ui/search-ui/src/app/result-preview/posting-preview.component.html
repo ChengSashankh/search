@@ -1,0 +1,20 @@
+<div class="container">
+  <mat-card appearance="outlined" class="example-card" (click)="cardClicked()">
+    <mat-card-header>
+      <mat-card-title>{{posting.title}}</mat-card-title>
+      <button mat-icon-button aria-label="Save">
+        <mat-icon>bookmark</mat-icon>
+      </button>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{posting.summary}}</p>
+    </mat-card-content>
+    <mat-card-footer>
+      <mat-chip-listbox aria-label="Matching Terms">
+        <mat-chip *ngFor="let term of posting.matchingSubstring">
+          {{term}}
+        </mat-chip>
+      </mat-chip-listbox>
+    </mat-card-footer>
+  </mat-card>
+</div>

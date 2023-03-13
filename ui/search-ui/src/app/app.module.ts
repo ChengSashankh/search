@@ -19,12 +19,19 @@ import { SearchResultsComponent } from './search-results/search-results.componen
 import { SearchHomeComponent } from './search-home/search-home.component';
 import {RouterModule} from "@angular/router";
 import {SearchService} from "./services/search.service";
+import { PostingPreviewComponent } from './result-preview/posting-preview.component';
+import {MatCardModule} from "@angular/material/card";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {MatListModule} from "@angular/material/list";
+import {MatChipsModule} from "@angular/material/chips";
+import {MatPaginatorModule} from "@angular/material/paginator";
 @NgModule({
   declarations: [
     AppComponent,
     SearchBoxComponent,
     SearchResultsComponent,
-    SearchHomeComponent
+    SearchHomeComponent,
+    PostingPreviewComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +50,12 @@ import {SearchService} from "./services/search.service";
     RouterModule.forRoot([
       {path: '', component: SearchHomeComponent},
       {path: 'results', component: SearchResultsComponent}
-    ])
+    ]),
+    MatCardModule,
+    MatProgressBarModule,
+    MatListModule,
+    MatChipsModule,
+    MatPaginatorModule
   ],
   providers: [
     ConfigurationService,

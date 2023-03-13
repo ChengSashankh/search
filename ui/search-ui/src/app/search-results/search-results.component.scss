@@ -1,4 +1,34 @@
-.top-20 {
-  height: 20vw;
-  width: 100%;
+@use '@angular/material' as mat;
+$my-palette: mat.$deep-purple-palette;
+
+.container {
+
+  .search-part {
+    height: 8vw;
+    width: 100%;
+  }
+
+  .results-panel {
+    height: 70vh;
+    width: 60%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  ::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: mat.get-color-from-palette($my-palette, 500);
+    -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+  }
+
+  mat-paginator {
+    display: flex;
+    justify-content: center;
+  }
 }

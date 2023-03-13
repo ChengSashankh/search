@@ -1,9 +1,13 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import {debounceTime, distinctUntilChanged, map, Observable, of} from "rxjs";
 import {AutoCompleteService} from "../services/auto-complete.service";
 import {Completions} from "../model/responses";
-import {MatAutocompleteActivatedEvent} from "@angular/material/autocomplete";
+import {
+  MatAutocomplete,
+  MatAutocompleteActivatedEvent,
+  MatAutocompleteSelectedEvent
+} from "@angular/material/autocomplete";
 import {Optional} from "../model/optional";
 import {Router} from "@angular/router";
 
@@ -15,6 +19,7 @@ import {Router} from "@angular/router";
 export class SearchBoxComponent implements OnInit {
   @Input() initialSearch: string = '';
   @Output() searched: EventEmitter<string> = new EventEmitter<string>();
+  @ViewChild(MatAutocomplete) matAutocomplete: any;
 
   form: FormGroup;
   suggestions: Observable<string[]>;
@@ -23,6 +28,9 @@ export class SearchBoxComponent implements OnInit {
 
   constructor(private autoCompleteService: AutoCompleteService,
               private router: Router) {
+    if (!this.matAutocomplete) {
+      this.matAutocomplete = null;
+    }
     this.suggestions = of([]);
     this.form = new FormGroup({
       searchControl: new FormControl<string>({
@@ -74,7 +82,14 @@ export class SearchBoxComponent implements OnInit {
   }
 
   suggestionsClosed() {
-    this.form.get('searchControl')?.patchValue(this.overriddenSearchTerm.getOrElse(''), {emitEvent: false});
+    if (this.suggestionActive) {
+      this.form.get('searchControl')?.patchValue(this.overriddenSearchTerm.getOrElse(''), {emitEvent: false});
+      this.suggestionActive = false;
+    }
+  }
+
+  suggestionSelected($event: MatAutocompleteSelectedEvent) {
+    this.form.get('searchControl')?.patchValue($event.option.value, {emitEvent: false});
     this.suggestionActive = false;
   }
 }

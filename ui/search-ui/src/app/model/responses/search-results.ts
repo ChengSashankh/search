@@ -9,7 +9,7 @@ export interface SearchResults {
 export interface Posting {
   title: string;
   summary: string;
-  matchingSubstrings: string[];
+  matchingSubstring: string[];
   href: string;
   rank?: number;
 }
