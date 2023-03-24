@@ -2,6 +2,7 @@ package fyi.deeno.searchservice.controller;
 
 import fyi.deeno.searchservice.model.Posting;
 import fyi.deeno.searchservice.model.SearchResults;
+import fyi.deeno.searchservice.service.RedisSearchService;
 import fyi.deeno.searchservice.service.SimpleMapSearchService;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,9 +14,9 @@ import java.util.stream.Collectors;
 @RequestMapping("/search")
 public class SearchController {
 
-    private SimpleMapSearchService simpleMapSearchService;
+    private RedisSearchService simpleMapSearchService;
 
-    public SearchController(SimpleMapSearchService simpleMapSearchService) {
+    public SearchController(RedisSearchService simpleMapSearchService) {
         this.simpleMapSearchService = simpleMapSearchService;
     }
 
