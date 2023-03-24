@@ -47,7 +47,7 @@ export class SearchBoxComponent implements OnInit {
         distinctUntilChanged()
       )
       .subscribe((searchTerm: string) => {
-        this.searched.emit(searchTerm);
+        // this.searched.emit(searchTerm);
         this.overriddenSearchTerm.set(searchTerm);
         this.suggestionActive = false;
         if (searchTerm.trim() === '') {
@@ -71,7 +71,7 @@ export class SearchBoxComponent implements OnInit {
   }
 
   search(form: FormGroup) {
-    this.router.navigate(['results'], { queryParams: { "q": form.get('searchControl')?.value }})
+    this.searched.emit(this.form.get('searchControl')?.value);
   }
 
   suggestionActivated($event: MatAutocompleteActivatedEvent) {
