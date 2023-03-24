@@ -2,6 +2,7 @@ package fyi.deeno
 
 import fyi.deeno.indexers.SimpleInvertedIndexer
 import fyi.deeno.readers.XMLDatasetReader
+import org.apache.spark.sql.functions.col
 import org.apache.spark.sql.{SaveMode, SparkSession}
 
 object Main {
@@ -25,6 +26,12 @@ object Main {
       .option("delimiter", "\t")
       .mode(SaveMode.Overwrite)
       .csv("/Users/cksash/IdeaProjects/looking-glass/search/backend/extractor/src/main/resources/outputIndex")
+
+    df.select(col("id"), col("title"))
+      .write
+      .option("delimiter", "\t")
+      .mode(SaveMode.Overwrite)
+      .csv("/Users/cksash/IdeaProjects/looking-glass/search/backend/extractor/src/main/resources/pages")
 
     index.show(20, false)
   }

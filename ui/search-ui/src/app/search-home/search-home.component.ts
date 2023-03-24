@@ -8,5 +8,10 @@ import {Router} from "@angular/router";
 })
 export class SearchHomeComponent  {
 
+  constructor(private router: Router) {
+  }
 
+  searchTriggered($event: any) {
+    this.router.navigate(['results'], { queryParams: { "q": $event }})
+  }
 }

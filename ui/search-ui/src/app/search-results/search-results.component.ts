@@ -29,17 +29,18 @@ export class SearchResultsComponent implements OnInit {
 
   ngOnInit(): void {
     this.search = this.route.snapshot.queryParamMap.has('q') ? this.route.snapshot.queryParamMap.get('q') as string : '';
-    this.getSearchResults();
+    this.getSearchResults(this.search);
   }
 
-  getSearchResults(): void {
+  getSearchResults($event: any): void {
+    this.search = $event;
     this.loading = true;
     this.searchService.getSearchResults(this.search, this.pageInfo)
       .subscribe({
         next: (searchResults: SearchResults) => {
           this.searchResults.set(searchResults);
           this.postings = searchResults.results;
-          this.pageInfo = searchResults.pageInfo;
+          // this.pageInfo = searchResults.pageInfo;
           this.loading = false;
           this.error = false;
         },
@@ -56,11 +57,11 @@ export class SearchResultsComponent implements OnInit {
   }
 
   onPaginationChanged($event: PageEvent) {
-    this.pageInfo = {
-      pageNum: $event.pageIndex,
-      itemsPerPage: $event.pageSize
-    };
+    // this.pageInfo = {
+    //   pageNum: $event.pageIndex,
+    //   itemsPerPage: $event.pageSize
+    // };
 
-    this.getSearchResults();
+    this.getSearchResults(this.search);
   }
 }

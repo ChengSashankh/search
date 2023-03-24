@@ -13,3 +13,7 @@ export interface Posting {
   href: string;
   rank?: number;
 }
+
+export interface LeanPostings {
+  results: number[];
+}
