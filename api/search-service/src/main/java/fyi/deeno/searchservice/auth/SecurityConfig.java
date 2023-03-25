@@ -2,6 +2,7 @@ package fyi.deeno.searchservice.auth;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator;
@@ -35,6 +36,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests()
+                .requestMatchers(HttpMethod.OPTIONS).permitAll()
                 .requestMatchers("/search").authenticated()
                 .requestMatchers("/search").hasAuthority("SCOPE_read:search")
                 .and().cors()

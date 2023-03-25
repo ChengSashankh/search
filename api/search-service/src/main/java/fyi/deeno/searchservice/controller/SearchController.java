@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/search")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 public class SearchController {
 
     private RedisSearchService simpleMapSearchService;
