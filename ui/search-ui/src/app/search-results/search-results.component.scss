@@ -2,7 +2,6 @@
 $my-palette: mat.$deep-purple-palette;
 
 .container {
-
   .search-part {
     min-height: 8vw;
     width: 100%;
@@ -21,6 +20,7 @@ $my-palette: mat.$deep-purple-palette;
     -webkit-appearance: none;
     width: 7px;
   }
+
   ::-webkit-scrollbar-thumb {
     border-radius: 4px;
     background-color: mat.get-color-from-palette($my-palette, 500);

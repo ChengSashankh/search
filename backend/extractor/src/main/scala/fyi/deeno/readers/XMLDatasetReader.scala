@@ -2,7 +2,7 @@ package fyi.deeno.readers
 
 import fyi.deeno.data.Page
 import org.apache.spark.sql.functions.col
-import org.apache.spark.sql.{DataFrame, Dataset, SparkSession}
+import org.apache.spark.sql.{Dataset, SparkSession}
 
 class XMLDatasetReader(spark: SparkSession) {
 

@@ -10,8 +10,8 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/search")
+@CrossOrigin(origins = "http://localhost:4200")
 public class SearchController {
 
     private RedisSearchService simpleMapSearchService;

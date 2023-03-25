@@ -1,0 +1,14 @@
+<div class="container">
+  <img src="assets/web_search.png" class="logo">
+
+  <h3 class="mat-headline-4">Deeno says hello!</h3>
+
+  <h5 class="mat-headline-5">
+    Deeno is shy, and isn't ready for the public yet. If you've been invited by his human
+    to test it out, you must be special!
+  </h5>
+
+  <button mat-raised-button (click)="openSecretDoor()" color="accent">
+    {{ !(auth.isAuthenticated$ | async) ?  'Secret door' : 'Go to search'}}
+  </button>
+</div>
