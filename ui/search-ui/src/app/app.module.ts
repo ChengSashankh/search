@@ -27,6 +27,8 @@ import {MatChipsModule} from "@angular/material/chips";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {AuthGuard, AuthHttpInterceptor, AuthModule} from "@auth0/auth0-angular";
 import { LoginComponent } from './login/login.component';
+import { environment } from './environments/environment';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,21 +63,21 @@ import { LoginComponent } from './login/login.component';
     MatChipsModule,
     MatPaginatorModule,
     AuthModule.forRoot({
-      domain: 'dev-qk7xwwa7wbzaridi.us.auth0.com',
-      clientId: 'eEvwt7TvPpTv13JFkW6x0naeLviC3Msw',
+      domain: environment.authDomain,
+      clientId: environment.clientId,
       authorizationParams: {
         redirect_uri: `${window.location.origin}/search`,
-        audience: 'https://deeno.fyi/api/search',
-        scope: 'read:search'
+        audience: environment.audience,
+        scope: environment.scope
       },
       httpInterceptor: {
         allowedList: [
           {
-            uri: 'http://localhost:8080/*',
+            uri: environment.interceptorAllowedUri,
             tokenOptions: {
               authorizationParams: {
-                audience: 'https://deeno.fyi/api/search',
-                scope: 'read:search'
+                audience: environment.audience,
+                scope: environment.scope
               }
             }
           }
