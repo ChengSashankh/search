@@ -49,7 +49,7 @@ public class RedisSearchService {
 
 
     public List<Posting> get(String key) {
-        return Arrays.stream(redisPool.get(key.toLowerCase()).split(","))
+        return redisPool.get(key.toLowerCase()).stream()
                 .map(id -> {
                     Posting posting = new Posting(id);
                     posting.title = pages.getOrDefault(id, "unknown");

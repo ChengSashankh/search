@@ -14,7 +14,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {ConfigurationService} from "./model";
 import {AutoCompleteService} from "./services/auto-complete.service";
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { SearchHomeComponent } from './search-home/search-home.component';
 import {RouterModule} from "@angular/router";
@@ -25,13 +25,16 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatListModule} from "@angular/material/list";
 import {MatChipsModule} from "@angular/material/chips";
 import {MatPaginatorModule} from "@angular/material/paginator";
+import {AuthGuard, AuthHttpInterceptor, AuthModule} from "@auth0/auth0-angular";
+import { LoginComponent } from './login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
     SearchBoxComponent,
     SearchResultsComponent,
     SearchHomeComponent,
-    PostingPreviewComponent
+    PostingPreviewComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -48,20 +51,44 @@ import {MatPaginatorModule} from "@angular/material/paginator";
     BrowserAnimationsModule,
     BrowserModule,
     RouterModule.forRoot([
-      {path: '', component: SearchHomeComponent},
-      {path: 'results', component: SearchResultsComponent}
+      {path: '', component: LoginComponent},
+      {path: 'search', component: SearchHomeComponent, canActivate: [ AuthGuard ]},
+      {path: 'results', component: SearchResultsComponent, canActivate: [ AuthGuard ]}
     ]),
     MatCardModule,
     MatProgressBarModule,
     MatListModule,
     MatChipsModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    AuthModule.forRoot({
+      domain: 'dev-qk7xwwa7wbzaridi.us.auth0.com',
+      clientId: 'eEvwt7TvPpTv13JFkW6x0naeLviC3Msw',
+      authorizationParams: {
+        redirect_uri: `${window.location.origin}/search`,
+        audience: 'https://deeno.fyi/api/search',
+        scope: 'read:search'
+      },
+      httpInterceptor: {
+        allowedList: [
+          {
+            uri: 'http://localhost:8080/*',
+            tokenOptions: {
+              authorizationParams: {
+                audience: 'https://deeno.fyi/api/search',
+                scope: 'read:search'
+              }
+            }
+          }
+        ]
+      }
+    })
   ],
   providers: [
     ConfigurationService,
     AutoCompleteService,
     SearchService,
-    { provide: APP_INITIALIZER, useFactory: (config: ConfigurationService) => () => config.load(), deps: [ConfigurationService], multi: true }
+    { provide: APP_INITIALIZER, useFactory: (config: ConfigurationService) => () => config.load(), deps: [ConfigurationService], multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })
