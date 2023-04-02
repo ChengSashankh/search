@@ -1,13 +1,13 @@
 package fyi.deeno.indexers
 
-import fyi.deeno.data.{InvertedPosting, Page, Posting}
+import fyi.deeno.protocols.data.{Document, InvertedPosting, Posting}
 import org.apache.spark.sql.{Column, Dataset, SparkSession}
 import org.apache.spark.sql.functions.{col, collect_set, concat, concat_ws, lit}
 
 class SimpleInvertedIndexer(spark: SparkSession) {
   def stringify(c: Column) = concat(lit("["), concat_ws(",", c), lit("]"))
 
-  def index(pageDf: Dataset[Page]): Dataset[InvertedPosting] = {
+  def index(pageDf: Dataset[Document]): Dataset[InvertedPosting] = {
     import spark.implicits._
 
     pageDf
