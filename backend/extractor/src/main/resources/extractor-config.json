@@ -1,4 +1,4 @@
 {
-  "sourceDataPath": "/Users/cksash/Downloads/wikipedia/Wikipedia-20230319144301.xml",
-  "outputBasePath": "/Users/cksash/IdeaProjects/looking-glass/search/backend/extractor/src/main/resources/outputIndex"
+  "sourceDataPath": "/Users/cksash/Downloads/enwiki-20231201.xml-p1p41242",
+  "outputBasePath": "/Users/cksash/IdeaProjects/backend/extractor/src/main/resources/outputIndex"
 }

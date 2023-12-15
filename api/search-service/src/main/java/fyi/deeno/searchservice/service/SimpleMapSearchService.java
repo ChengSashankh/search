@@ -8,10 +8,12 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Service
 public class SimpleMapSearchService {
 
     private final Environment env;
@@ -52,6 +54,21 @@ public class SimpleMapSearchService {
                     Posting posting = new Posting(id);
                     posting.title = pages.getOrDefault(id, "Unknown");
 
+                    return posting;
+                })
+                .collect(Collectors.toList());
+    }
+
+
+    public List<Posting> get(String[] keys) {
+        return Arrays.stream(keys)
+                .map(String::toLowerCase)
+                .map(key -> index.getOrDefault(key.toLowerCase(), new String[0]))
+                .flatMap(Arrays::stream)
+                .distinct()
+                .map(id -> {
+                    Posting posting = new Posting(id);
+                    posting.setTitle(pages.getOrDefault(id, "unknown"));
                     return posting;
                 })
                 .collect(Collectors.toList());
