@@ -14,16 +14,15 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = "*")
 public class SearchController {
 
-    private RedisSearchService simpleMapSearchService;
+    private SimpleMapSearchService simpleMapSearchService;
 
-    public SearchController(RedisSearchService simpleMapSearchService) {
+    public SearchController(SimpleMapSearchService simpleMapSearchService) {
         this.simpleMapSearchService = simpleMapSearchService;
     }
 
     @GetMapping
     public SearchResults getPostings(@RequestParam("q") String query) {
-        SearchResults searchResults = new SearchResults();
-        searchResults.results = simpleMapSearchService.get(query);
-        return searchResults;
+        // TODO: What if the comma is in the query string
+        return new SearchResults(simpleMapSearchService.get(query.split(",")));
     }
 }

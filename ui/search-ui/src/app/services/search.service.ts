@@ -17,8 +17,7 @@ export class SearchService {
   }
 
   public getSearchResults(query: string, pageInfo: PageInfo): Observable<SearchResults> {
-    let httpParams = new HttpParams()
-      .set("q", query)
+    let httpParams = new HttpParams().set("q", query.replace(" ", ","))
       // .set("pageNum", pageInfo.pageNum)
       // .set("pageSize", pageInfo.itemsPerPage);
     let secureParams = SecurityUtils.sanitizeHttpParams(httpParams);

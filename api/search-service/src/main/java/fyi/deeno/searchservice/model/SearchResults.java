@@ -1,7 +1,10 @@
 package fyi.deeno.searchservice.model;
 
+import lombok.Data;
+
 import java.util.List;
 
+@Data
 public class SearchResults {
-    public List<Posting> results;
+    final public List<Posting> results;
 }

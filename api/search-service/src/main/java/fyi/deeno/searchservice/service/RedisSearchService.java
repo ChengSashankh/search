@@ -9,11 +9,13 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Service
+import static java.util.stream.Collectors.groupingBy;
+
 public class RedisSearchService {
 
     private final Environment env;
@@ -52,7 +54,21 @@ public class RedisSearchService {
         return redisPool.get(key.toLowerCase()).stream()
                 .map(id -> {
                     Posting posting = new Posting(id);
-                    posting.title = pages.getOrDefault(id, "unknown");
+                    posting.setTitle(pages.getOrDefault(id, "unknown"));
+                    return posting;
+                })
+                .collect(Collectors.toList());
+    }
+
+    public List<Posting> get(String[] keys) {
+        return Arrays.stream(keys)
+                .map(String::toLowerCase)
+                .map(redisPool::get)
+                .flatMap(Collection::stream)
+                .distinct()
+                .map(id -> {
+                    Posting posting = new Posting(id);
+                    posting.setTitle(pages.getOrDefault(id, "unknown"));
                     return posting;
                 })
                 .collect(Collectors.toList());
