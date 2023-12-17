@@ -16,7 +16,7 @@ class SimpleInvertedIndexer(spark: SparkSession) {
               .map(_.toLowerCase).filter(_.nonEmpty).filter(_.length < 28)
               .map(word => Posting(word, page.id, 1)))
       .groupBy(col("word")).agg((collect_set("id")).alias("docs"))
-      .withColumn("docs", stringify($"docs"))
+      // .withColumn("docs", stringify($"docs"))
       .as[InvertedPosting]
   }
 

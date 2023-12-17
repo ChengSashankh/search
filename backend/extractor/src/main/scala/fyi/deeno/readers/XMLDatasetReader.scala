@@ -13,6 +13,7 @@ class XMLDatasetReader(spark: SparkSession) {
       .option("rowTag", rowTag)
       .load(sourceFilePath)
       .select(col("id"), col("title"), col("revision.text._VALUE").alias("text"))
+      .limit(16)
       .as[Document]
   }
 

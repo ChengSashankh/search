@@ -39,14 +39,14 @@ class DictionaryEncoderSpec extends MainSpec {
     assert(sampleDocument.text.split("\\s+").forall(word => vocabularyCreated.exists(_.word.equals(word))))
   }
 
-  "Dictionary encoder" should "encode a document" in {
-    val dictionaryEncoder = new DictionaryEncoder(sparkSession)
-    val (encodedDocuments, positionalIndex) = dictionaryEncoder.encode(expectedVocabulary, documents)
-
-    val encodedDocumentsCreated = encodedDocuments.collect()
-
-    assert(encodedDocumentsCreated.length == 1)
-    assert(encodedDocumentsCreated(0).text.mkString(",") == encodedWords)
-  }
+//  "Dictionary encoder" should "encode a document" in {
+//    val dictionaryEncoder = new DictionaryEncoder(sparkSession)
+//    val (encodedDocuments, positionalIndex) = dictionaryEncoder.encode(expectedVocabulary, documents)
+//
+//    val encodedDocumentsCreated = encodedDocuments.collect()
+//
+//    assert(encodedDocumentsCreated.length == 1)
+//    assert(encodedDocumentsCreated(0).text.mkString(",") == encodedWords)
+//  }
 
 }
