@@ -9,7 +9,7 @@ object TsvDatasetWriter {
   def store[T](vocabulary: Dataset[T], path: String, overwrite: Boolean = false): Option[String] = {
     val saveMode = if (overwrite) SaveMode.Overwrite else SaveMode.ErrorIfExists
 
-    Try(vocabulary.write.bucketBy(16, "id").mode(saveMode).parquet(path)) match {
+    Try(vocabulary.write.mode(saveMode).parquet(path)) match {
       case Success(value) =>
         println(s"Successfully wrote dataset to $path")
         Some(path)

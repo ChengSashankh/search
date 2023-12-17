@@ -1,6 +1,6 @@
 package fyi.deeno.encoder
 
-import fyi.deeno.protocols.data.{Document, EncodedDocument, NewPositionalIndex, PositionalIndex, Vocabulary}
+import fyi.deeno.protocols.data.{Document, EncodedDocument, PositionalIndex, Vocabulary}
 import fyi.deeno.writers.TsvDatasetWriter.store
 import fyi.deeno.writers.Udfs.stringify
 import org.apache.spark.sql.expressions.Window
@@ -28,7 +28,7 @@ class DictionaryEncoder(spark: SparkSession) {
       .toList
       .map(_.id)
   }
-  def encode(vocab: Dataset[Vocabulary], documents: Dataset[Document]): (Dataset[EncodedDocument], Dataset[NewPositionalIndex]) = {
+  def encode(vocab: Dataset[Vocabulary], documents: Dataset[Document]): Dataset[PositionalIndex] = {
     import spark.implicits._
 
     val documentWordPositions = documents
@@ -36,37 +36,37 @@ class DictionaryEncoder(spark: SparkSession) {
       .join(vocab, vocab("word").equalTo(col("col")), "inner")
       .select("docId", "id", "pos")
 
-    val positionalIndex: Dataset[NewPositionalIndex] = documentWordPositions
+    val positionalIndex: Dataset[PositionalIndex] = documentWordPositions
       .groupBy("docId", "id").agg(collect_list("pos").as("indexes"))
       .withColumn("id", col("id").cast("long"))
-      .as[NewPositionalIndex]
+      .as[PositionalIndex]
 
     positionalIndex.show(2, false)
 
-    val groupingWindow = Window.partitionBy("docId").orderBy("pos")
+//    val groupingWindow = Window.partitionBy("docId").orderBy("pos")
+//
+//    val encodedDocuments = documentWordPositions
+//      .withColumn("sortedTerms", collect_list("id").over(groupingWindow))
+//      .groupBy("docId").agg(max("sortedTerms").as("encodedWords"))
+//      .select(col("docId").as("id"), stringify(col("encodedWords")).as("text"))
+//      .as[EncodedDocument]
 
-    val encodedDocuments = documentWordPositions
-      .withColumn("sortedTerms", collect_list("id").over(groupingWindow))
-      .groupBy("docId").agg(max("sortedTerms").as("encodedWords"))
-      .select(col("docId").as("id"), stringify(col("encodedWords")).as("text"))
-      .as[EncodedDocument]
-
-    (encodedDocuments, positionalIndex)
+    positionalIndex
   }
 
-  def execute(documents: Dataset[Document], outputPath: String): Dataset[EncodedDocument] = {
+  def execute(documents: Dataset[Document], outputPath: String): Unit = {
 
     val vocabPath: String = s"$outputPath/vocab"
     val positionalIdxLoc: String = s"$outputPath/positionalIdx"
     val encodedDocumentsLoc: String = s"$outputPath/encodedDocs"
 
     val vocab: Dataset[Vocabulary] = buildVocabulary(documents)
-    val (encodedDocuments, positionalIndex) = encode(vocab, documents)
+    val positionalIndex = encode(vocab, documents)
 
     store(vocab, vocabPath, true)
 //    store(encodedDocuments, encodedDocumentsLoc, true)
     store(positionalIndex, positionalIdxLoc, true)
 
-    encodedDocuments
+//    encodedDocuments
   }
 }
