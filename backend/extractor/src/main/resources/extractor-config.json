@@ -1,7 +1,6 @@
 {
-  "sourceDataPath": "/Users/cksash/Downloads/enwiki-20231201.xml-p1p41242",
+  "sourceDataPath": "/Users/cksash/Downloads/enwiki-20231201-1.xml-p1p41242",
   "outputBasePath": "/Users/cksash/IdeaProjects/search/backend/extractor/src/main/resources/outputIndex",
-  "redisHost": "deeno.redis.cache.windows.net",
-  "redisPort": 6380,
-  "redisPasswd": "y9mT3mCgGNEi4tVGUiudT4LBz1SjkTR3MAzCaNPbm7Q"
+  "redisHost": "http://localhost",
+  "redisPort": 6379
 }

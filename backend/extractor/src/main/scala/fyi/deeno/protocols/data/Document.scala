@@ -11,7 +11,7 @@ case class PositionalPosting(id: Long, pos: Long)
 // TODO: Changing positional index to using PositionalPosting instead of List[Long]
 // causes dataset typing to fail
 
-case class PositionalIndex(docId: Long, id: Long, indexes: List[Long])
+case class PositionalIndex(docIds: List[Long], docTitles: List[String], id: Long, indexes: List[List[Long]])
 
 case class Posting(word: String, id: Long, count: Long)
 case class SubPosting(id: Long, count: Long)

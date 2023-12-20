@@ -4,7 +4,7 @@ import fyi.deeno.protocols.data.{Document, EncodedDocument, PositionalIndex, Voc
 import fyi.deeno.writers.TsvDatasetWriter.store
 import fyi.deeno.writers.Udfs.stringify
 import org.apache.spark.sql.expressions.Window
-import org.apache.spark.sql.functions.{array_distinct, col, collect_list, concat_ws, explode, max, monotonically_increasing_id, posexplode, split}
+import org.apache.spark.sql.functions.{array_distinct, col, collect_list, concat_ws, explode, lower, max, monotonically_increasing_id, posexplode, regexp_replace, split, transform}
 import org.apache.spark.sql.{DataFrame, Dataset, SparkSession}
 
 class DictionaryEncoder(spark: SparkSession) {
@@ -33,15 +33,17 @@ class DictionaryEncoder(spark: SparkSession) {
 
     val documentWordPositions = documents
       .select(col("id").as("docId"), col("title").as("docTitle"), posexplode(split(col("text"), "\\s+")))
+      .withColumn("col", regexp_replace(lower(col("col")), "[^a-zA-Z, ]+", ""))
       .join(vocab, vocab("word").equalTo(col("col")), "inner")
-      .select("docId", "id", "pos")
+      .select("docId", "docTitle", "id", "pos")
 
     val positionalIndex: Dataset[PositionalIndex] = documentWordPositions
-      .groupBy("docId", "id").agg(collect_list("pos").as("indexes"))
+      .groupBy("docId", "id", "docTitle").agg(collect_list("pos").as("indexes"))
+      .groupBy("id").agg(collect_list("docId").as("docIds"), collect_list("indexes").as("indexes"), collect_list("docTitle").as("docTitles"))
       .withColumn("id", col("id").cast("long"))
       .as[PositionalIndex]
 
-    positionalIndex.show(2, false)
+    positionalIndex.show(2, truncate = false)
 
 //    val groupingWindow = Window.partitionBy("docId").orderBy("pos")
 //
