@@ -22,12 +22,14 @@ object Runner {
       .master("local[*]")
       .config("spark.redis.host", config.redisHost)
       .config("spark.redis.port", config.redisPort)
-      .config("spark.redis.passwd", config.redisPasswd)
+      .config("spark.redis.max.pipeline.size", 255)
+      .config("spark.redis.timeout", 120000)
+      .config("redis.timeout", 120000)
       .getOrCreate
   }
 
   private def readSourceData(sparkSession: SparkSession, sourceDataPath: String): Dataset[Document] = {
-    new XMLDatasetReader(sparkSession).read(sourceDataPath).repartition(16)
+    new XMLDatasetReader(sparkSession).read(sourceDataPath)
   }
 
   private def extractDocumentMetadata(sparkSession: SparkSession, documents: Dataset[Document]): Dataset[DocumentMetadata] = {

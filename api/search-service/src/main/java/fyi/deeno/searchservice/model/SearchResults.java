@@ -6,5 +6,5 @@ import java.util.List;
 
 @Data
 public class SearchResults {
-    final public List<Posting> results;
+    final public List<PositionalPostingHit> results;
 }

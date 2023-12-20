@@ -37,9 +37,10 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests()
                 .requestMatchers(HttpMethod.OPTIONS).permitAll()
+                .requestMatchers("/login").permitAll()
                 .requestMatchers("/search").authenticated()
-                .requestMatchers("/search").hasAuthority("SCOPE_read:search")
-                .and().cors()
+//                .requestMatchers("/search").hasAuthority("SCOPE_read:search")
+//                .and().cors()
                 .and().oauth2ResourceServer().jwt();
         return http.build();
     }

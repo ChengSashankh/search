@@ -53,7 +53,7 @@ export class SearchBoxComponent implements OnInit {
         if (searchTerm.trim() === '') {
           this.suggestions = of([]);
         } else {
-          this.suggestions = this.getAutoComplete(searchTerm.trim().toLowerCase());
+          // this.suggestions = this.getAutoComplete(searchTerm.trim().toLowerCase());
         }
       });
     this.form.get('searchControl')?.setValue(this.initialSearch);
