@@ -3,6 +3,7 @@ package fyi.deeno.encoder
 import fyi.deeno.protocols.data.{Document, EncodedDocument, PositionalIndex, Vocabulary}
 import fyi.deeno.writers.TsvDatasetWriter.store
 import fyi.deeno.writers.Udfs.stringify
+import org.apache.spark.ml.feature.Tokenizer
 import org.apache.spark.sql.expressions.Window
 import org.apache.spark.sql.functions.{array_distinct, col, collect_list, concat_ws, explode, lower, max, monotonically_increasing_id, posexplode, regexp_replace, split, transform}
 import org.apache.spark.sql.{DataFrame, Dataset, SparkSession}
@@ -12,10 +13,11 @@ class DictionaryEncoder(spark: SparkSession) {
   def buildVocabulary(documents: Dataset[Document]): Dataset[Vocabulary] = {
     import spark.implicits._
 
-    documents
-      .select(col("text"))
-      .withColumn("words", split(col("text"), "\\s+"))
+    val tokenizer = new Tokenizer().setInputCol("text").setOutputCol("words")
+
+    tokenizer.transform(documents.withColumn("text", lower(col("text"))))
       .select(explode(array_distinct(col("words"))) as "word")
+      .filter(!col("word").rlike("[^A-Za-z]"))
       .withColumn("id", monotonically_increasing_id())
       .as[Vocabulary]
   }
@@ -31,8 +33,10 @@ class DictionaryEncoder(spark: SparkSession) {
   def encode(vocab: Dataset[Vocabulary], documents: Dataset[Document]): Dataset[PositionalIndex] = {
     import spark.implicits._
 
-    val documentWordPositions = documents
-      .select(col("id").as("docId"), col("title").as("docTitle"), posexplode(split(col("text"), "\\s+")))
+    val tokenizer = new Tokenizer().setInputCol("text").setOutputCol("col")
+
+    val documentWordPositions = tokenizer.transform(documents)
+      .select(col("id").as("docId"), col("title").as("docTitle"), posexplode(col("col")))
       .withColumn("col", regexp_replace(lower(col("col")), "[^a-zA-Z, ]+", ""))
       .join(vocab, vocab("word").equalTo(col("col")), "inner")
       .select("docId", "docTitle", "id", "pos")
