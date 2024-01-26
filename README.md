@@ -1,5 +1,7 @@
 # Deeno Search Engine
 
+![image](https://github.com/ChengSashankh/search/assets/15691658/794ff39b-fa10-4aa9-b2d4-d289c3fe5af2)
+
 The search project I've always wanted to work on. 
 
 Deeno is a search engine project that I am just beginning to undertake. The goal of this project is to really just 
