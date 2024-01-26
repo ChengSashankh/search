@@ -11,16 +11,18 @@ object RedisWriter {
       .builder
       .appName("extractor")
       .master("local[*]")
-      .config("spark.redis.host", "127.0.0.1")
-      .config("spark.redis.port", 6379)
+      .config("spark.redis.host", "deeno-app.redis.cache.windows.net")
+      .config("spark.redis.port", 6380)
+      .config("spark.redis.auth", "WoR7W9JeJJCzsfwgya5LqM1Se3l8CiOR3AzCaNDLBiA=")
+      .config("spark.redis.ssl", "true")
       .getOrCreate
 
     val docs = spark.read
-      .parquet("/Users/cksash/Documents/proj/search/backend/extractor/src/main/resources/outputIndex/docs")
+      .parquet("/Users/cksash/IdeaProjects/search/backend/extractor/src/main/resources/outputIndex//docs")
 
-    val posIdx = spark.read.parquet("/Users/cksash/IdeaProjects/search/backend/extractor/src/main/resources/outputIndex/positionalIdx")
+    val posIdx = spark.read.parquet("/Users/cksash/IdeaProjects/search/backend/extractor/src/main/resources/outputIndex//positionalIdx")
 
-    val invIdx = spark.read.parquet("/Users/cksash/IdeaProjects/search/backend/extractor/src/main/resources/outputIndex/invertedIndex")
+    val invIdx = spark.read.parquet("/Users/cksash/IdeaProjects/search/backend/extractor/src/main/resources/outputIndex//invertedIndex")
 
     val vocab = spark.read.parquet("/Users/cksash/IdeaProjects/search/backend/extractor/src/main/resources/outputIndex/vocab")
 
