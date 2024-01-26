@@ -1,6 +1,6 @@
 {
   "sourceDataPath": "/Users/cksash/Downloads/enwiki-20231201-1.xml-p1p41242",
   "outputBasePath": "/Users/cksash/IdeaProjects/search/backend/extractor/src/main/resources/outputIndex",
-  "redisHost": "http://localhost",
+  "redisHost": "10.197.37.203",
   "redisPort": 6379
 }
