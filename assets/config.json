@@ -1,5 +1,5 @@
 {
-  "autoCompleteServiceBase": "https://dc28beee-0733-4757-94f6-3d363320f0ac.mock.pstmn.io",
-  "searchServiceBase": "http://localhost:8080",
+  "autoCompleteServiceBase": "https://serene-brook-13021-7c28e8bae51e.herokuapp.com/complete",
+  "searchServiceBase": "http://localhost:8080/",
   "trackingServiceBase": "https://localhost:9090/tracking"
 }
