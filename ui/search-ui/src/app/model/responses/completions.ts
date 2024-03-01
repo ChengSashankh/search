@@ -5,3 +5,8 @@ export interface Completions {
   completions: string[];
   pageInfo?: PageInfo;
 }
+
+export interface TemporaryCompletions {
+  query: string;
+  completions: string[];
+}

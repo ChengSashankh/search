@@ -53,9 +53,9 @@ import { environment } from './environments/environment';
     BrowserAnimationsModule,
     BrowserModule,
     RouterModule.forRoot([
-      {path: '', component: LoginComponent},
-      {path: 'search', component: SearchHomeComponent, canActivate: [ AuthGuard ]},
-      {path: 'results', component: SearchResultsComponent, canActivate: [ AuthGuard ]}
+      {path: '', component: SearchHomeComponent},
+      {path: 'search', component: SearchHomeComponent }, //, canActivate: [ AuthGuard ]},
+      {path: 'results', component: SearchResultsComponent } //, canActivate: [ AuthGuard ]}
     ]),
     MatCardModule,
     MatProgressBarModule,

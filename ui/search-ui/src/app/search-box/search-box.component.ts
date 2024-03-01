@@ -10,6 +10,7 @@ import {
 } from "@angular/material/autocomplete";
 import {Optional} from "../model/optional";
 import {Router} from "@angular/router";
+import {TemporaryCompletions} from "../model/responses/completions";
 
 @Component({
   selector: 'app-search-box',
@@ -53,7 +54,7 @@ export class SearchBoxComponent implements OnInit {
         if (searchTerm.trim() === '') {
           this.suggestions = of([]);
         } else {
-          // this.suggestions = this.getAutoComplete(searchTerm.trim().toLowerCase());
+          this.suggestions = this.getAutoComplete(searchTerm.trim().toLowerCase());
         }
       });
     this.form.get('searchControl')?.setValue(this.initialSearch);
@@ -66,7 +67,7 @@ export class SearchBoxComponent implements OnInit {
   getAutoComplete(searchTerm: string): Observable<string[]> {
     return this.autoCompleteService.getCompletions(searchTerm)
       .pipe(
-        map((completions: Completions) => completions.completions)
+        map((completions: TemporaryCompletions) => completions.completions)
       );
   }
 

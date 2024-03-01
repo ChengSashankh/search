@@ -5,6 +5,7 @@ import {AppConfiguration} from "../model/app-configuration";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {SecurityUtils} from "../helpers/security-utils";
 import {Completions} from "../model/responses";
+import {TemporaryCompletions} from "../model/responses/completions";
 
 @Injectable()
 export class AutoCompleteService {
@@ -16,13 +17,13 @@ export class AutoCompleteService {
     this.appConfiguration = configurationService.appConfiguration.get();
   }
 
-  public getCompletions(partial: string): Observable<Completions> {
-    let httpParams = new HttpParams().set("partial", partial);
+  public getCompletions(partial: string): Observable<TemporaryCompletions> {
+    let httpParams = new HttpParams().set("query", partial);
     let secureParams = SecurityUtils.sanitizeHttpParams(httpParams);
-    let url: string = new URL('completions', this.appConfiguration.autoCompleteServiceBase).href;
+    let url: string = new URL('complete', this.appConfiguration.autoCompleteServiceBase).href;
     return this.httpClient.get(url, {params: secureParams})
       .pipe(
-        map(response => response as Completions)
+        map(response => response as TemporaryCompletions)
       );
   }
 
