@@ -1,5 +1,5 @@
 {
   "autoCompleteServiceBase": "https://serene-brook-13021-7c28e8bae51e.herokuapp.com/complete",
-  "searchServiceBase": "http://localhost:8080/",
+  "searchServiceBase": "https://warm-fjord-30655-3bb141ec7b72.herokuapp.com/",
   "trackingServiceBase": "https://localhost:9090/tracking"
 }
