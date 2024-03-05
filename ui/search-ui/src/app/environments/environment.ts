@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  searchServiceBase: 'http://localhost:8080/',
+  searchServiceBase: 'https://warm-fjord-30655-3bb141ec7b72.herokuapp.com/',
   autoCompleteServiceBase: 'http://localhost:8081',
   trackingServiceBase: 'http://localhost:8082',
   authDomain: 'dev-qk7xwwa7wbzaridi.us.auth0.com',

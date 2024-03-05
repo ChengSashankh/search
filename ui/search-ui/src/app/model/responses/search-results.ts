@@ -1,5 +1,14 @@
 import {PageInfo} from "./common";
 
+export interface VectorSearchResults {
+  results: Doc[];
+}
+
+export interface Doc {
+  content?: string;
+  title: string;
+}
+
 export interface SearchResults {
   query: string;
   results: Posting[];

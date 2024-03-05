@@ -6,7 +6,7 @@
   <div *ngIf="!error && postings.length === 0">
     <h3 class="mat-h3">No results to show</h3>
   </div>
-  <div *ngIf="!error" class="results-panel">
+  <div #resultRef *ngIf="!error" class="results-panel">
     <app-result-preview *ngFor="let posting of postings"
                         [posting]="posting" (postingClicked)="openResultExternal(posting)"></app-result-preview>
   </div>

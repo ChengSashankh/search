@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Observable} from "rxjs";
 import {SearchService} from "../services/search.service";
 import {PageInfo, Posting, SearchResults} from "../model/responses";
 import {Optional} from "../model/optional";
 import {PageEvent} from "@angular/material/paginator";
+import {VectorSearchResults} from "../model/responses/search-results";
 
 @Component({
   selector: 'app-search-results',
@@ -15,8 +16,10 @@ export class SearchResultsComponent implements OnInit {
 
   search: string = '';
   postings: Posting[];
-  searchResults: Optional<SearchResults>;
+  searchResults: Optional<VectorSearchResults>;
   pageInfo: PageInfo = {itemsPerPage: 10, pageNum: 0};
+
+  @ViewChild("resultRef") resultRef!: ElementRef;
 
   loading: boolean = false;
   error: boolean = false;
@@ -37,12 +40,16 @@ export class SearchResultsComponent implements OnInit {
     this.loading = true;
     this.searchService.getSearchResults(this.search, this.pageInfo)
       .subscribe({
-        next: (searchResults: SearchResults) => {
+        next: (searchResults: VectorSearchResults) => {
           this.searchResults.set(searchResults);
-          this.postings = searchResults.results;
+          this.postings = searchResults.results.map(r => {
+            let words = r.content?.split(" ");
+            return {title: r.title, summary: words?.splice(0, 100).join(" ") + ((words && words.length > 100) ? "..." : ""), href: `https://en.wikipedia.org/wiki/${r.title.replace(" ", "_")}`} as Posting;
+          });
           // this.pageInfo = searchResults.pageInfo;
           this.loading = false;
           this.error = false;
+          this.resultRef.nativeElement.scrollTo(0, 0);
         },
         error: (err: any) => {
           this.loading = false;

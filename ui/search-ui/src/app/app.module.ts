@@ -72,15 +72,15 @@ import { environment } from './environments/environment';
       },
       httpInterceptor: {
         allowedList: [
-          {
-            uri: environment.interceptorAllowedUri,
-            tokenOptions: {
-              authorizationParams: {
-                audience: environment.audience,
-                scope: environment.scope
-              }
-            }
-          }
+          // {
+          //   uri: environment.interceptorAllowedUri,
+          //   tokenOptions: {
+          //     authorizationParams: {
+          //       audience: environment.audience,
+          //       scope: environment.scope
+          //     }
+          //   }
+          // }
         ]
       }
     })

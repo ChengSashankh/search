@@ -5,6 +5,7 @@ import {map, Observable} from "rxjs";
 import {Completions, PageInfo, SearchResults} from "../model/responses";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {SecurityUtils} from "../helpers/security-utils";
+import {VectorSearchResults} from "../model/responses/search-results";
 
 @Injectable()
 export class SearchService {
@@ -16,7 +17,7 @@ export class SearchService {
     this.appConfiguration = configurationService.appConfiguration.get();
   }
 
-  public getSearchResults(query: string, pageInfo: PageInfo): Observable<SearchResults> {
+  public getSearchResults(query: string, pageInfo: PageInfo): Observable<VectorSearchResults> {
     let httpParams = new HttpParams().set("q", query.replace(" ", ","))
       // .set("pageNum", pageInfo.pageNum)
       // .set("pageSize", pageInfo.itemsPerPage);
@@ -24,7 +25,7 @@ export class SearchService {
     let url: string = new URL('search', this.appConfiguration.searchServiceBase).href;
 
     return this.httpClient.get(url, {params: secureParams})
-      .pipe(map(response => response as SearchResults));
+      .pipe(map(response => response as VectorSearchResults));
   }
 
 }
