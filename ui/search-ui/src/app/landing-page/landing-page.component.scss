@@ -1,0 +1,19 @@
+.container {
+  text-align: center;
+  justify-content: center;
+  display: block;
+
+  .list-box {
+    mat-chip-option {
+      margin-left: 2px;
+      margin-right: 2px;
+    }
+    margin-bottom: 2vh;
+  }
+
+  .text-area {
+    margin-left: 5vw;
+    margin-right: 5vw;
+  }
+
+}

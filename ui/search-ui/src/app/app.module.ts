@@ -28,6 +28,7 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {AuthGuard, AuthHttpInterceptor, AuthModule} from "@auth0/auth0-angular";
 import { LoginComponent } from './login/login.component';
 import { environment } from './environments/environment';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { environment } from './environments/environment';
     SearchResultsComponent,
     SearchHomeComponent,
     PostingPreviewComponent,
-    LoginComponent
+    LoginComponent,
+    LandingPageComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +55,7 @@ import { environment } from './environments/environment';
     BrowserAnimationsModule,
     BrowserModule,
     RouterModule.forRoot([
-      {path: '', component: SearchHomeComponent},
+      {path: '', component: LandingPageComponent},
       {path: 'search', component: SearchHomeComponent }, //, canActivate: [ AuthGuard ]},
       {path: 'results', component: SearchResultsComponent } //, canActivate: [ AuthGuard ]}
     ]),
