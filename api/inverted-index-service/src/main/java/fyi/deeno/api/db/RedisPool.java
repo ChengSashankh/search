@@ -8,7 +8,7 @@ import java.util.*;
 
 @Component
 public class RedisPool {
-    public static JedisPooled jedis = new JedisPooled("deeno-app.redis.cache.windows.net", 6380, "", "WoR7W9JeJJCzsfwgya5LqM1Se3l8CiOR3AzCaNDLBiA=");
+    public static JedisPooled jedis = new JedisPooled("", 1234, "", "");
 
     public void set(String key, String value) {
         jedis.set(key, value);
