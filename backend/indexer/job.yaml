@@ -1,0 +1,15 @@
+apiVersion: run.googleapis.com/v1
+kind: Job
+metadata:
+  name: indexer
+spec:
+  template:
+    spec:
+      template:
+        spec:
+          containers:
+            - image: us-east1-docker.pkg.dev/deeno-417616/cloud-run-source-deploy/indexer
+              resources:
+                limits:
+                  cpu: "4"
+                  memory: "8192Mi"
