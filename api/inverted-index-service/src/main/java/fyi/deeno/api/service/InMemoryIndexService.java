@@ -42,7 +42,7 @@ public class InMemoryIndexService {
         String lines = resource.getContentAsString(Charset.defaultCharset());
 
         for (String line: lines.split("\n")) {
-            line.split(",")
+            line.split(",");
         }
 
         log.info("Trie build completed. Ready to serve requests");

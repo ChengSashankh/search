@@ -28,3 +28,10 @@ The plan:
 I'm at step 1 now, and once the infrastructure is up and running, things should really accelerate. Stay tuned!
 
 
+```shell
+gcloud run services replace service.yaml
+cd api/autocomplete/
+gcloud run deploy
+```
+
+This command is equivalent to running `gcloud builds submit --tag [IMAGE] /Users/cksash/Documents/proj/search/api/flask-aisearch` and `gcloud run deploy flask-aisearch --image [IMAGE]`
