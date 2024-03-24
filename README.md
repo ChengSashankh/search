@@ -31,7 +31,7 @@ I'm at step 1 now, and once the infrastructure is up and running, things should 
 
 I've now started configuring the infrastructure for this project as follows on Google Cloud:
 
-![Deeno Architecture.png](docs/Deeno Architecture.png)
+![Deeno Architecture.png](docs/architecture.png)
 
 So I can now build individual containers like so:
 ```shell
