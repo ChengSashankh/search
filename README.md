@@ -27,11 +27,25 @@ The plan:
 
 I'm at step 1 now, and once the infrastructure is up and running, things should really accelerate. Stay tuned!
 
+## Setting up the infrastructure
+
+I've now started configuring the infrastructure for this project as follows on Google Cloud:
+
+![Deeno Architecture.png](docs/Deeno Architecture.png)
+
+So I can now build individual containers like so:
+```shell
+gcloud builds submit --tag [IMAGE] /Users/cksash/Documents/proj/search/api/flask-aisearch
+```
+
+Run them individually if I wish like so:
+
+```shell
+gcloud run deploy flask-aisearch --image [IMAGE]
+```
+
+And run the entire project in the correct order (defined by dependencies) like so: 
 
 ```shell
 gcloud run services replace service.yaml
-cd api/autocomplete/
-gcloud run deploy
 ```
-
-This command is equivalent to running `gcloud builds submit --tag [IMAGE] /Users/cksash/Documents/proj/search/api/flask-aisearch` and `gcloud run deploy flask-aisearch --image [IMAGE]`
