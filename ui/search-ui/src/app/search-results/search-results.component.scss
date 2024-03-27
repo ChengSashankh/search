@@ -1,9 +1,10 @@
 @use '@angular/material' as mat;
+
 $my-palette: mat.$deep-purple-palette;
 
 .container {
   .search-part {
-    min-height: 8vw;
+    min-height: 5vw;
     width: 100%;
   }
 
@@ -34,5 +35,19 @@ $my-palette: mat.$deep-purple-palette;
 
   .centered {
     margin-top: 25%;
+  }
+
+  .gen-ai-box {
+    display: flex;
+    flex-direction: row;
+
+    mat-icon {
+      color: green;
+      margin-left: auto;
+    }
+
+    p {
+      margin-right: auto;
+    }
   }
 }

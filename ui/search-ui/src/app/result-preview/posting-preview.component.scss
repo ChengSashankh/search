@@ -6,12 +6,22 @@
 
   .example-card:hover {
     cursor: pointer;
+    border-width: 1px;
+
+    mat-card-title {
+      text-decoration: underline;
+    }
   }
 
   .example-card {
     margin-left: auto;
     margin-right: auto;
     margin-top: 10px;
+    border-width: 0;
+
+    mat-card-title {
+      color: blue;
+    }
 
     mat-card-content {
       text-align: left;

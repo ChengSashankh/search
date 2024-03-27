@@ -2,6 +2,12 @@
   <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
   <div class="search-part">
     <app-search-box [initialSearch]="search" (searched)="getSearchResults($event)"></app-search-box>
+    <div *ngIf="postings.length != 0">
+      <h5>Retrieved {{ postings.length }} results from vector database</h5>
+    </div>
+  </div>
+  <div class="gen-ai-box">
+    <mat-icon color="accent">question_answer</mat-icon><p>Generative AI features coming soon!</p>
   </div>
   <div *ngIf="!error && postings.length === 0">
     <h3 class="mat-h3">No results to show</h3>
@@ -13,14 +19,14 @@
   <div *ngIf="error">
     <h3 class="mat-h3 centered">Something went wrong while searching :(</h3>
   </div>
-<!--  <mat-paginator-->
-<!--    *ngIf="!error"-->
-<!--    [length]="pageInfo.totalItems"-->
-<!--    [pageIndex]="pageInfo.pageNum"-->
-<!--    [pageSize]="pageInfo.itemsPerPage"-->
-<!--    [pageSizeOptions]="[10, 25, 50]"-->
-<!--    [showFirstLastButtons]="true"-->
-<!--    (page)="onPaginationChanged($event)"-->
-<!--    aria-label="Select page"-->
-<!--  ></mat-paginator>-->
+  <!--  <mat-paginator-->
+  <!--    *ngIf="!error"-->
+  <!--    [length]="pageInfo.totalItems"-->
+  <!--    [pageIndex]="pageInfo.pageNum"-->
+  <!--    [pageSize]="pageInfo.itemsPerPage"-->
+  <!--    [pageSizeOptions]="[10, 25, 50]"-->
+  <!--    [showFirstLastButtons]="true"-->
+  <!--    (page)="onPaginationChanged($event)"-->
+  <!--    aria-label="Select page"-->
+  <!--  ></mat-paginator>-->
 </div>
